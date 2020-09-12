@@ -1,0 +1,9 @@
+_._doxygen/latex/
+_._doxygen/html/
+_.._invalids/
+
+# Compiled Object files
+*.o
+
+# for projects that use SCons for building: http://http://www.scons.org/
+.sconsign.dblite

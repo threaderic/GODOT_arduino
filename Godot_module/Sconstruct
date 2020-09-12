@@ -1,0 +1,39 @@
+import os
+
+env = Environment()
+
+if env['PLATFORM'] == 'darwin':
+    env['CXX'] = 'clang++'
+    env['CCFLAGS'] = '-stdlib=libc++ '
+    env['LINKFLAGS'] = '-stdlib=libc++ '  
+elif env['PLATFORM'] == 'posix':
+    env['CXX'] = 'g++-7'
+    
+
+    #env.Append(LIBPATH=['/usr/lib/x86_64-linux-gnu/','#/external-libraries/TGUI/lib/'])
+    #add the path for using library after building
+    #env.Append(RPATH=['/usr/lib/x86_64-linux-gnu/','external-libraries/TGUI/lib/'])
+
+if env['PLATFORM'] == 'darwin':
+    #not correct for darwin platform
+    env.Append(CCFLAGS='-std=c++0x -g3 -Wall -Wextra -pthread -I/usr/include/ -I/usr/SFML/include/ -Iexternal-libraries/TGUI/include/ -Isrc/classes/ -lpthread')
+elif env['PLATFORM'] == 'posix':    
+    env.Append(CCFLAGS='-std=c++14 -g3 -Wall -Wextra -pthread -I/usr/include/')
+    #env.Append(LIBS=['sfml-system', 'sfml-window', 'sfml-graphics','pthread'])
+    env.Append(LIBS=['pthread'])
+    env.Decider('content')
+
+src_files = Glob("*.cpp")
+objects=env.Object(source=src_files)
+
+
+def DefineProgram(name, main):
+    target = env.Program(name, source = objects , CPPPATH = '.')
+    env.Alias(name, target)
+    run = env.Command(name+".out",[],"./build/"+name, ENV = os.environ)
+    env.Alias(name+"-run", run)
+    env.Depends(run, target)
+    env.AlwaysBuild(run)
+    env.Default(target)
+
+DefineProgram('test_guifolder', ['main.cpp'])
