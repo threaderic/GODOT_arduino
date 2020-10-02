@@ -2,14 +2,20 @@
 
 the aim of this module is to send data from/to GODOT <-> Arduino
 
+![Demo](/_._doxygen/demo.gif)
+
+
+
 # Godot Engine
 
 ![Godot logo](/_._doxygen/godot_logo_md.png "Godot logo")
+
 https://godotengine.org/
 
 # Arduino
 
 ![Arduino logo](/_._doxygen/Arduino_logo_md.png "Arduino logo")
+
 https://www.arduino.cc/en/Guide/Introduction
 
 # Godot module for communication with Arduino 
@@ -26,6 +32,7 @@ in this project, the arduino nano is wired with MPU9250/MPU650 module SDA --> A4
 [links to library rpicopter](https://github.com/rpicopter/ArduinoMotionSensorExample)
 
 ![MPU9250](/_._doxygen/s-l1600_md.png)
+
 https://www.robot-maker.com/shop/capteurs/217-imu-9-axes-mpu9250-6500-spi-217.html
 
 a led is also wired to D3 in order to be controled from godot
@@ -58,3 +65,8 @@ scons -j4
 ## Godot_Codes folder
 
 Godot code to be opened in Godot
+
+## _._doxygen folder 
+
+open doxyfile with doxygen --> run doxygen --> show HTML output 
+--> enjoy browsing in this beautiful documentation ;)
