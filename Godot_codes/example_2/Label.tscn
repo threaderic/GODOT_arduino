@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Label.gd" type="Script" id=1]
+
+[node name="Label" type="Label" groups=[
+"enemies",
+]]
+margin_left = 66.4643
+margin_top = 42.6884
+margin_right = 106.464
+margin_bottom = 56.6884
+text = "label"
+script = ExtResource( 1 )

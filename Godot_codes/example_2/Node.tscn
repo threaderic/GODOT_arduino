@@ -1,0 +1,125 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Node.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 5.0
+height = 0.1
+
+[sub_resource type="SpatialMaterial" id=2]
+
+[sub_resource type="PhysicsMaterial" id=3]
+rough = true
+bounce = 0.1
+absorbent = true
+
+[sub_resource type="SphereShape" id=4]
+margin = 0.1
+radius = 0.4
+
+[node name="Node" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.02
+autostart = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 970.607, 57.0391 )
+scale = Vector2( 1.18512, 1.18971 )
+texture = ExtResource( 2 )
+region_rect = Rect2( 10, 10, 10, 20 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 134.066
+margin_top = 25.9853
+margin_right = 334.066
+margin_bottom = 39.9853
+grow_horizontal = 0
+rect_scale = Vector2( 3, 3 )
+hint_tooltip = "whoao"
+text = "donnes MPU9250"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 47.5221
+margin_top = 535.776
+margin_right = 211.522
+margin_bottom = 555.776
+rect_scale = Vector2( 3, 3 )
+text = "int to arduino"
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+margin_left = 42.0
+margin_top = 87.0
+margin_right = 751.0
+margin_bottom = 129.0
+mouse_default_cursor_shape = 6
+max_value = 255.0
+step = 1.0
+custom_step = 5.28
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_left = 45.522
+margin_top = 152.618
+margin_right = 989.522
+margin_bottom = 496.618
+stretch = true
+
+[node name="Camera" type="Camera" parent="ViewportContainer"]
+transform = Transform( 1, 0, 0, 0, 0.918529, 0.395354, 0, -0.395354, 0.918529, 0.0395342, 2.77519, 12.2957 )
+h_offset = 0.23
+v_offset = 2.42
+fov = 44.0
+size = 10.0
+
+[node name="RigidBody2" type="RigidBody" parent="ViewportContainer"]
+mode = 1
+gravity_scale = 0.0
+continuous_cd = true
+contacts_reported = 1
+
+[node name="CollisionShape" type="CollisionShape" parent="ViewportContainer/RigidBody2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0482707, 0 )
+shape = SubResource( 1 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="ViewportContainer/RigidBody2/CollisionShape"]
+use_collision = true
+radius = 6.0
+height = 0.05
+sides = 50
+material = SubResource( 2 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="ViewportContainer/RigidBody2/CollisionShape/CSGCylinder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.01708 )
+operation = 2
+calculate_tangents = false
+radius = 0.465571
+height = 2.10045
+sides = 14
+
+[node name="RigidBody" type="RigidBody" parent="ViewportContainer"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58416, 0 )
+mass = 2.0
+physics_material_override = SubResource( 3 )
+gravity_scale = 0.2
+continuous_cd = true
+contact_monitor = true
+linear_damp = 0.0
+angular_damp = 0.0
+
+[node name="CollisionShape" type="CollisionShape" parent="ViewportContainer/RigidBody"]
+shape = SubResource( 4 )
+
+[node name="CSGSphere" type="CSGSphere" parent="ViewportContainer/RigidBody/CollisionShape"]
+transform = Transform( 0.277955, 0.0776411, 0.957451, -0.701379, 0.697453, 0.147058, -0.65636, -0.712412, 0.248316, 0, 0, 0 )
+use_collision = true
+radius = 0.4
+rings = 9
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+[connection signal="scrolling" from="HScrollBar" to="." method="_on_HScrollBar_scrolling"]
+[connection signal="draw" from="ViewportContainer" to="." method="_on_ViewportContainer_draw"]

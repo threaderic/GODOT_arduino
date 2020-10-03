@@ -23,7 +23,11 @@ elif env['PLATFORM'] == 'posix':
     env.Append(LIBS=['pthread'])
     env.Decider('content')
 
-src_files = Glob("*.cpp")
+# src_files = Glob("*.cpp") --> commented --> simplify the module integration in Godot 
+# the folder "to_copy_to_current_for_godot" is not necessary anymore
+
+src_files = ["main.cpp","ceSerial.cpp","arduino_f.cpp"]
+
 objects=env.Object(source=src_files)
 
 

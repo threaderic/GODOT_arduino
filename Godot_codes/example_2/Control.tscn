@@ -1,0 +1,16 @@
+[gd_scene format=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 52.0
+margin_right = -761.0
+margin_bottom = -410.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 12.1919
+margin_top = 10.2412
+margin_right = 52.1919
+margin_bottom = 24.2412
+text = "label"

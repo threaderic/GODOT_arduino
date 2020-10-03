@@ -17,8 +17,8 @@
 ////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-/// \def if TEST_arduino_f_module_in_main used, this module can be used in a main program (out of godot for test)
-#define TEST_arduino_f_module_in_main
+/// \def if TEST_arduino_f_module_in_main used, this module can be used in a main program (standalone, out of Godot for test)
+// #define TEST_arduino_f_module_in_main
 
 ////////////////////////////////////////////////////////////
 // Headers
@@ -79,13 +79,18 @@ class Arduino_f
         /// \brief stop Thread_generate_com (join to main thread)
         void stop_thread_generate_com();
 
-        /// \brief get (from arduino to godot) string or int
-        char* get_string_com();
-
         #ifndef TEST_arduino_f_module_in_main
         // String instead of char* for Godot
+        
+        /// \brief get (from arduino to godot) string
+        String get_string_com();
+        
         void set_string_com(String p_string);
         #else       // #ifndef TEST_arduino_f_module_in_main
+        
+        /// \brief get (from arduino to godot) char*
+        char* get_string_com();
+        
         void set_string_com(char* p_string);
         #endif      // #ifndef TEST_arduino_f_module_in_main
 

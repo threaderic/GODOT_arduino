@@ -159,7 +159,7 @@ void Arduino_f::generate_com()  {
                 #ifdef TEST_arduino_f_module_in_main
                 printf("%s\n",c);
                 #endif
-                ceSerial::Delay(6);
+                ceSerial::Delay(5);
             } //end if
             else
             {
@@ -193,16 +193,13 @@ void Arduino_f::generate_com()  {
 }
 
 
+#ifndef TEST_arduino_f_module_in_main
+// String instead of char* + function conversion p_string.ascii().get_data()
 
-char* Arduino_f::get_string_com() {
+String Arduino_f::get_string_com() {
     std::lock_guard<std::mutex> lock(m_mutex_get);
     return m_data;
 }
-
-
-
-#ifndef TEST_arduino_f_module_in_main
-// String instead of char* + function conversion p_string.ascii().get_data()
 
 void Arduino_f::set_string_com(String p_string){
     std::lock_guard<std::mutex> lock(m_mutex_set);
@@ -212,6 +209,12 @@ void Arduino_f::set_string_com(String p_string){
 }
 
 #else // # ifndef TEST_arduino_f_module_in_main
+
+char* Arduino_f::get_string_com() {
+    std::lock_guard<std::mutex> lock(m_mutex_get);
+    return m_data;
+}
+
 void Arduino_f::set_string_com(char* p_string){
     std::lock_guard<std::mutex> lock(m_mutex_set);
     memset(m_data_to_arduino_string,'\0',sizeof (m_data_to_arduino_string));
