@@ -5,8 +5,8 @@ the aim of this module is to send data from/to GODOT <-> Arduino
 ![Demo](/_._doxygen/demo.gif)
 
 in this demo :
-at the top between < >, data coming from arduino
-at the bottom, integer sent to arduino and controling the intensity of the red LED.
+- at the top between < >, data coming from arduino
+- at the bottom, integer sent to arduino and controling the intensity of the red LED.
 
 # Godot Engine
 
