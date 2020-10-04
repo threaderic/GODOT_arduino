@@ -7,3 +7,7 @@ _.._invalids/
 
 # for projects that use SCons for building: http://http://www.scons.org/
 .sconsign.dblite
+
+# kdevelop file and folder
+.kdev4/
+Godot_Arduino.kdev4

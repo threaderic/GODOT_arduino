@@ -1,6 +1,7 @@
 # README
 
 the aim of this module is to send data from/to GODOT <-> Arduino
+(tested and working on linux platform)
 
 ![Demo](/_._doxygen/demo.gif)
 
@@ -41,7 +42,7 @@ a led is also wired to D3 in order to be controled from godot
 
 ## Godot module folder
 
-to be copied in Godot module folder (godot-3.1.2-stable/modules/arduino_f/)
+to be copied in Godot module folder (godot-3.x.y-stable/modules/arduino_f/)
 
 in file :
 comments the line (if not, it is a define for using this module in the main file -> see main.cpp)
@@ -49,7 +50,7 @@ comments the line (if not, it is a define for using this module in the main file
 // #define TEST_arduino_f_module_in_main
 ~~~~~~
 
-and build again with scons in the main directory /godot-3.1.2-stable (x11 for linux)
+and build again with scons in the main directory /godot-3.x.y-stable (x11 for linux)
 ~~~~~~.bash
 scons platform='x11' -j4
 ~~~~~~
@@ -72,3 +73,13 @@ Godot code to be opened in Godot
 
 open doxyfile with doxygen --> run doxygen --> show HTML output 
 --> enjoy browsing in this beautiful documentation ;)
+
+# ideas for future development
+
+- add crc check for the strings transmitted from and to Godot
+
+- add the possibility to choose in Godot directly the speed of sending message (for the moment every 10 ms)
+
+- add a second loop to have two channels of sending message in different speed ; for example, fast message every 10 ms and low message every 1000 ms
+
+- add connectivity via WiFi, Bluetooth
