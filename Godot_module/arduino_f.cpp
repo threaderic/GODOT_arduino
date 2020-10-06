@@ -11,7 +11,8 @@ int getMilliCount()
     return nCount;
 }
 
-Arduino_f::Arduino_f() :  m_thread_generate_com_bool(true),m_thread_generate_int_bool(true) {
+Arduino_f::Arduino_f() :  m_thread_generate_com_bool(true), m_thread_generate_int_bool(true) {
+    m_loop_speed = 10;
     com.SetPort("/dev/ttyUSB0");
     com.SetBaudRate(115200);
     com.SetDataSize(8);
@@ -21,6 +22,18 @@ Arduino_f::Arduino_f() :  m_thread_generate_com_bool(true),m_thread_generate_int
     strcpy(m_data_to_arduino_string, "oo\0");
     std::cout << com.GetPort() << com.GetBaudRate() << com.GetDataSize() << com.GetParity() << com.GetStopBits() << std::endl;
 }
+
+Arduino_f::Arduino_f(int loop_speed) : m_loop_speed(loop_speed), m_thread_generate_com_bool(true),m_thread_generate_int_bool(true) {
+    com.SetPort("/dev/ttyUSB0");
+    com.SetBaudRate(115200);
+    com.SetDataSize(8);
+    com.SetParity('N');
+    com.SetStopBits(1);
+    memset(this->m_data,'\0',sizeof (this->m_data));
+    strcpy(m_data_to_arduino_string, "oo\0");
+    std::cout << com.GetPort() << com.GetBaudRate() << com.GetDataSize() << com.GetParity() << com.GetStopBits() << std::endl;
+}
+
 
 Arduino_f::~Arduino_f()
 {// m_thread_print.join();
@@ -91,7 +104,7 @@ void Arduino_f::generate_com()  {
     //timer variables
     int startMillis;                        //some global variables available anywhere in the program
     int currentMillis;
-    const int period = 10;                  //the value is a number of milliseconds
+    //const int period = 10;                  //the value is a number of milliseconds
     
     printf("Reading.\n");
     printf("Waiting 1 seconds.\n");
@@ -112,8 +125,8 @@ void Arduino_f::generate_com()  {
     while(m_thread_generate_com_bool){
         currentMillis = getMilliCount();                // get the current "time" (actually the number of milliseconds since the program started)
         
-        if (currentMillis - startMillis >= period) {    // test whether the period has elapsed
-            startMillis = startMillis + period;         // update the startMillis for the next loop
+        if (currentMillis - startMillis >= m_loop_speed) {    // test whether the m_loop_speed has elapsed
+            startMillis = startMillis + m_loop_speed;         // update the startMillis for the next loop
             
             recvInProgress = false;
             ndx = 0;
@@ -159,7 +172,7 @@ void Arduino_f::generate_com()  {
                 #ifdef TEST_arduino_f_module_in_main
                 printf("%s\n",c);
                 #endif
-                ceSerial::Delay(5);
+                ceSerial::Delay(4);
             } //end if
             else
             {

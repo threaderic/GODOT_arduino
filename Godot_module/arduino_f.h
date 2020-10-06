@@ -18,7 +18,7 @@
 
 ////////////////////////////////////////////////////////////
 /// \def if TEST_arduino_f_module_in_main used, this module can be used in a main program (standalone, out of Godot for test)
-// #define TEST_arduino_f_module_in_main
+/// #define TEST_arduino_f_module_in_main
 
 ////////////////////////////////////////////////////////////
 // Headers
@@ -53,8 +53,10 @@ class Arduino_f
 #endif //#ifndef TEST_arduino_f_module_in_main
 
     public:
-        /// \brief Constructor, connection to the serial port for communication with arduino
+        /// \brief defaut Constructor, connection to the serial port for communication with arduino, loop_speed = 10 ms
         Arduino_f();
+        /// \brief Constructor, connection to the serial port for communication with arduino, set loop m_loop_speed with another speed
+        Arduino_f(int loop_speed);
         /// \brief Destructor
         ~Arduino_f();
 
@@ -101,6 +103,7 @@ class Arduino_f
     private:
         char m_data[100];
         char m_data_to_arduino_string[20];
+        int m_loop_speed;
         std::thread m_thread_print;
         std::thread m_thread_generate_int;
         std::thread m_thread_generate_com;
