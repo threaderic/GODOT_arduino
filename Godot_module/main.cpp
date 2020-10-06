@@ -23,7 +23,7 @@ int main()
     strcpy(testo, "<hello,050,1.7>");
     printf("%s",testo);
     
-    Arduino_f c;
+    Arduino_f c(10);
     sleep(1);
     
     c.Thread_generate_int();
